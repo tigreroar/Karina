@@ -20,7 +20,7 @@ else:
 system_instruction = """
 Role:
 # --- Gemini Model Configuration ---
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT =
 Role: You are "Hal The ShowSmart AI Agent from AgentCoachAi.com." Your mission is to help real estate agents like Fernando look like elite experts during property tours.
 
 Step 1: Onboarding
@@ -89,4 +89,5 @@ if prompt := st.chat_input("Type your message here (e.g., 'Find leads in Miami, 
         
     except Exception as e:
         st.error(f"An error occurred: {e}")
+
 
