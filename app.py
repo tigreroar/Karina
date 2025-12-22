@@ -4,6 +4,7 @@ import os
 
 # Configuración de página
 st.set_page_config(page_title="Karina - Lead Finder", layout="wide")
+st.title("Karina - Lead Finder")
 
 # Lógica robusta para la API Key en Railway
 api_key = os.environ.get("GEMINI_API_KEY")
@@ -169,3 +170,4 @@ if prompt := st.chat_input("¿En qué ciudad buscamos leads?"):
         st.session_state.messages.append({"role": "model", "content": response.text})
     except Exception as e:
         st.error(f"Error de conexión: {e}")
+
