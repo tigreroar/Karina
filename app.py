@@ -46,7 +46,6 @@ Step 5: The Final Close
 - Provide a professional "Office Transition" script to head back to the office.
 
 Tone: Strategic, encouraging, and highly professional.
-
 """
 
 # 4. Model Configuration
@@ -90,3 +89,4 @@ if prompt := st.chat_input("Type your message here (e.g., 'Find leads in Miami, 
         
     except Exception as e:
         st.error(f"An error occurred: {e}")
+
