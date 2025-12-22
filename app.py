@@ -145,29 +145,79 @@ model = genai.GenerativeModel(
     system_instruction=system_instruction
 )
 
-# --- Historial y Chat ---
+# 5. Chat History Initialization
+
 if "messages" not in st.session_state:
+
     st.session_state.messages = []
 
+
+
+# Display previous messages
+
 for message in st.session_state.messages:
-    role = "assistant" if message["role"] == "model" else message["role"]
-    with st.chat_message(role):
+
+    with st.chat_message(message["role"]):
+
         st.markdown(message["content"])
 
-if prompt := st.chat_input("¿En qué ciudad buscamos leads?"):
-    st.chat_message("user").markdown(prompt)
+
+
+# 6. Chat Logic
+
+if prompt := st.chat_input("Type your message here (e.g., 'Find leads in Miami, FL')..."):
+
+    
+
+    # Display user message
+
+    with st.chat_message("user"):
+
+        st.markdown(prompt)
+
     st.session_state.messages.append({"role": "user", "content": prompt})
 
+
+
+    # Generate response
+
     try:
-        chat = model.start_chat(history=[
+
+        # Prepare history correctly for Gemini
+
+        history_history = [
+
             {"role": m["role"], "parts": [m["content"]]} 
+
             for m in st.session_state.messages[:-1]
-        ])
-        response = chat.send_message(prompt)
+
+        ]
+
         
+
+        chat = model.start_chat(history=history_history)
+
+        
+
+        # Send text-only message
+
+        response = chat.send_message(prompt)
+
+        text_response = response.text
+
+        
+
+        # Display assistant response
+
         with st.chat_message("assistant"):
-            st.markdown(response.text)
-        st.session_state.messages.append({"role": "model", "content": response.text})
+
+            st.markdown(text_response)
+
+        st.session_state.messages.append({"role": "model", "content": text_response})
+
+        
+
     except Exception as e:
-        st.error(f"Error de conexión: {e}")
+
+        st.error(f"An error occurred: {e}")
 
